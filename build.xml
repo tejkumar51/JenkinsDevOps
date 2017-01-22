@@ -9,11 +9,13 @@
 	<property name="main-class" value="src.main.java.test" />
 	<property name="resource.dir" location="src/main/resources" />
 	<property name="build.test.checkstyle.results.dir" location="bin/checkstyles/report" />
+	<property name="lib.dir" location="lib" />
 
 
 	<target name="init">
 		<mkdir dir="${build.dir}" />
 		<mkdir dir="${build.test.checkstyle.results.dir}" />
+		<mkdir dir="build/myrepo" />
 	</target>
 
 	<target name="compile" depends="init" description="compile the source ">
@@ -48,9 +50,27 @@
 	<!-- Default, run this -->
 	<target name="main" depends="clean, compile, jar, pmd" />
 
+	<!-- use this following snippet to for ant-git integration -->
+	<target name="bootstrap">
+		<mkdir dir="${lib.dir}/.ant/lib" />
+		<get dest="${lib.dir}/.ant/lib/jgit.jar" src="http://search.maven.org/remotecontent?filepath=org/eclipse/jgit/org.eclipse.jgit/3.1.0.201310021548-r/org.eclipse.jgit-3.1.0.201310021548-r.jar" />
+		<get dest="${lib.dir}/.ant/lib/jgit.ant.jar" src="http://search.maven.org/remotecontent?filepath=org/eclipse/jgit/org.eclipse.jgit.ant/3.1.0.201310021548-r/org.eclipse.jgit.ant-3.1.0.201310021548-r.jar" />
+		<get dest="${lib.dir}/.ant/lib/jsch.jar" src="http://search.maven.org/remotecontent?filepath=com/jcraft/jsch/0.1.50/jsch-0.1.50.jar" />
+	</target>
+
+	<target name="git-clone">
+		<taskdef resource="org/eclipse/jgit/ant/ant-tasks.properties">
+			<classpath refid="compile.class.pathtest" />
+		</taskdef>
+		<git-clone uri="https://github.com/tejkumar51/JenkinsDevOps.git" dest="build/myrepo" branch="master" />
+	</target>
+
 
 	<path id="compile.class.pathtest">
 		<pathelement location="lib/checkstyle-7.4-all.jar" />
+		<pathelement location="lib/jgit.jar" />
+		<pathelement location="lib/jgit.ant.jar" />
+		<pathelement location="lib/jsch.jar" />
 	</path>
 
 </project>
