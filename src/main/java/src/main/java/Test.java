@@ -2,7 +2,12 @@ package src.main.java;
 
 import java.util.Date;
 
-public class test {
+/**
+ * 
+ * @author Tej
+ *
+ */
+public class Test {
 	private Date date = null;
 
 	public static void main(String[] args) {

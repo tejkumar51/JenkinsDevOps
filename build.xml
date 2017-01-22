@@ -40,7 +40,7 @@
 		<checkstyle config="${resource.dir}/sun_checks.xml" failonviolation="false">
 			<fileset dir="${src.dir}" includes="**/*.java" />
 			<formatter type="plain" />
-			<formatter type="plain" toFile="${build.test.checkstyle.results.dir}/checkstyle_errors.txt" />
+			<formatter type="xml" toFile="${build.test.checkstyle.results.dir}/checkstyle_errors.xml" />
 		</checkstyle>
 	</target>
 
